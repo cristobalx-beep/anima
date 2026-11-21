@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#13112a" />
+    <meta name="description" content="ANIMA: crea criaturas con genética modular, críalas, hazlas evolucionar y combate estratégicamente." />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="ANIMA" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" type="image/png" href="./icon-192.png" />
+    <link rel="apple-touch-icon" href="./icon-192.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600;800;900&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+    <title>ANIMA</title>
+    <script>
+      // Si una versión vieja guardada sin conexión no logra cargar el juego, limpiar la caché y recargar una vez.
+      window.addEventListener('error', function (e) {
+        var t = e.target;
+        if (!t || t.tagName !== 'SCRIPT' || sessionStorage.getItem('anima-reload')) return;
+        sessionStorage.setItem('anima-reload', '1');
+        var sw = navigator.serviceWorker ? navigator.serviceWorker.getRegistrations().then(function (rs) { return Promise.all(rs.map(function (r) { return r.unregister(); })); }) : Promise.resolve();
+        sw.then(function () { return window.caches ? caches.keys().then(function (ks) { return Promise.all(ks.map(function (k) { return caches.delete(k); })); }) : null; })
+          .finally(function () { location.reload(); });
+      }, true);
+    </script>
+    <script type="module" crossorigin src="./assets/index-DwKKUxU2.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-yO7D-L1s.css">
+  </head>
+  <body>
+    <canvas id="gl"></canvas>
+    <div id="ui"></div>
+    <div id="floaters"></div>
+    <div id="overlay"></div>
+    <div id="toasts"></div>
+    <div class="loading" id="loading"><div class="spin"></div></div>
+  </body>
+</html>
